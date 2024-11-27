@@ -180,7 +180,7 @@ function mn_deps {
                 pf=pyflakes3
         fi
         $install gcc make socat psmisc xterm ssh iperf telnet \
-                 ethtool help2man $pf pylint pep8 \
+                 ethtool help2man $pf pylint pycodestyle \
                  net-tools \
                  ${PYPKG}-pexpect ${PYPKG}-tk
         # Install pip
