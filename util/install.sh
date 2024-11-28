@@ -231,16 +231,19 @@ function of {
     fi
     # was: git clone git://openflowswitch.org/openflow.git
     # Use our own fork on github for now:
-    git clone git://github.com/mininet/openflow
+    git clone https://github.com/mininet/openflow.git
     cd $BUILD_DIR/openflow
 
     # Patch controller to handle more than 16 switches
-    patch -p1 < $MININET_DIR/mininet/util/openflow-patches/controller.patch
+    git apply $MININET_DIR/mininet/util/openflow-patches/controller.patch
+
+    # To fix a compilation error about strlcpy on Ubuntu 24.04
+    git apply $MININET_DIR/mininet/util/openflow-patches/util.patch
 
     # Resume the install:
     ./boot.sh
     ./configure
-    make
+    make CFLAGS=-DHAVE_STRLCPY
     sudo make install
     cd $BUILD_DIR
 }
@@ -498,7 +501,7 @@ function ivs {
 
     # Install IVS from source
     cd $BUILD_DIR
-    git clone git://github.com/floodlight/ivs $IVS_SRC
+    git clone https://github.com/floodlight/ivs.git $IVS_SRC
     cd $IVS_SRC
     git submodule update --init
     make
@@ -518,7 +521,7 @@ function ryu {
 
     # fetch RYU
     cd $BUILD_DIR/
-    git clone git://github.com/osrg/ryu.git ryu
+    git clone https://github.com/osrg/ryu.git ryu
     cd ryu
 
     # install ryu
@@ -629,7 +632,7 @@ function oftest {
 
     # Install oftest:
     cd $BUILD_DIR/
-    git clone git://github.com/floodlight/oftest
+    git clone https://github.com/floodlight/oftest.git
 }
 
 # Install cbench
@@ -646,7 +649,7 @@ function cbench {
     cd $BUILD_DIR/
     # was:  git clone git://gitosis.stanford.edu/oflops.git
     # Use our own fork on github for now:
-    git clone git://github.com/mininet/oflops
+    git clone https://github.com/mininet/oflops.git
     cd oflops
     sh boot.sh || true # possible error in autoreconf, so run twice
     sh boot.sh
