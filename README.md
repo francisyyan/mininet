@@ -7,6 +7,13 @@ Mininet 2.3.0
 [![Build Status][1]](https://github.com/mininet/mininet/actions)
 
 
+### Quick Start
+
+If using Python virtual environment (e.g.,`venv`), install Mininet with:
+
+  `sudo -E PYTHON=$(which python) ./util/install.sh -a`
+
+
 ### What is Mininet?
 
 Mininet emulates a complete network of hosts, links, and switches
